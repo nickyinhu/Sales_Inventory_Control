@@ -1,0 +1,12 @@
+*.py[cod]
+
+# jar
+*.jar
+
+# Class
+*.class
+*.classpath
+*.project
+
+# DataBase
+DataBase

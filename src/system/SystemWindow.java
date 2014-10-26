@@ -78,7 +78,7 @@ public class SystemWindow extends JFrame {
         /* CUSTOMERS */
         menuItemListCustomer = new JMenuItem("List of customers");
         menuItemRegisterCustomer = new JMenuItem("Register Customer");
-        menuItemPurchaseCustomer = new JMenuItem("Shopping Customer");
+        menuItemPurchaseCustomer = new JMenuItem("Customer Orders");
 
         /* INVENTORY */
         menuItemListInventory = new JMenuItem("List of products in inventory");
@@ -121,8 +121,8 @@ public class SystemWindow extends JFrame {
 
         /*******************SYSTEM TIME********************/
         ClockThread r = new ClockThread();
-        r.labelTime = new JLabel();//instancia o label
-        r.labelTime.setSize(70, 10);//seta a posição do label
+        r.labelTime = new JLabel();//initiate o label
+        r.labelTime.setSize(70, 10);//set up the label
         r.labelTime.setLocation(1010, 50);
         r.iniciaRelogio();
         mainPainel.add(r.labelTime);
@@ -185,7 +185,7 @@ public class SystemWindow extends JFrame {
                     }
                 });
 
-        /* Events of itens of menu from the bar of menu*/
+        /* Events of items of menu from the bar of menu*/
         /* CUSTOMERS */
         menuItemListCustomer.addActionListener(new ActionListener() {
 
@@ -360,8 +360,8 @@ public class SystemWindow extends JFrame {
         js.setVisible(true); // FALSE to activate login screen, TRUE to deactivate
 
         /*LOGIN- comment here to deactivate the function of login ---- warning: the system will not have protection*/
-       // Login l = new Login();
-       // l.setVisible(true);
+//        Login l = new Login();
+//        l.setVisible(true);
 
     }
 }
