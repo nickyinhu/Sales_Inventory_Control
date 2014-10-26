@@ -3,6 +3,7 @@ package product;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -17,13 +18,14 @@ public class ProductEdit extends JDialog {
     private JTextField textoName, textPurchase, textSale, textId, textDescription;
     private JButton buttomCancel, buttomUpdate;
     private int id;
+    final ProductView productView;
 
-    public ProductEdit(int id, String nome, String preco_compra, String preco_venda, String descricao) {
+    public ProductEdit(ProductView productView, int id, String nome, String preco_compra, String preco_venda, String descricao) {
         this.id = id;
-
+        this.productView = productView;
         mainPainel = new JPanel(null);
 
-        /*TITULO*/
+        /*Title*/
         labelTitle = new JLabel("EDITING PRODUCTS");
         labelTitle.setSize(300, 50);
         labelTitle.setLocation(10, 5);
@@ -143,6 +145,7 @@ public class ProductEdit extends JDialog {
                             return;
                         } else {
                             setVisible(false);
+                            productView.search();
                         }
 
                     }
