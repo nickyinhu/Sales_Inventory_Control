@@ -1,53 +1,46 @@
-﻿----- Script para criação do banco!
--CREATE DATABASE projetoIvo;
--\c projetoivo;
----- Script para criação do banco!
----CLIENTES
-CREATE TABLE clientes (
+﻿-CREATE DATABASE project;
+-\c project;
+CREATE TABLE client (
 	id SERIAL NOT NULL,
-	nome VARCHAR(50),
-	cpf VARCHAR(17),
-	telefone VARCHAR(16) ,
-	endereco VARCHAR(200),
-	data_cadastro DATE ,
+	name VARCHAR(50),
+	ssn VARCHAR(17),
+	telephone VARCHAR(16) ,
+	address VARCHAR(200),
+	date_register DATE ,
 	PRIMARY KEY (id) 
   )
 ;  
----COMPRAS
-CREATE TABLE compras (
+CREATE TABLE shopping (
 	id SERIAL NOT NULL ,
-	clientes_id INT ,
-	valor FLOAT NOT NULL,
-	data_compra DATE NOT NULL ,
+	client_id INT ,
+	value FLOAT NOT NULL,
+	date_shopping DATE NOT NULL ,
   PRIMARY KEY (id) ,
-  CONSTRAINT fk_compras_clientes
-    FOREIGN KEY (clientes_id)
-    REFERENCES clientes(id)	
+  CONSTRAINT fk_shopping_client
+    FOREIGN KEY (client_id)
+    REFERENCES client(id)	
 )
 ;
----PRODUTOS
-CREATE TABLE produtos (
+CREATE TABLE product (
 	id SERIAL NOT NULL ,
-	nome VARCHAR(50) NOT NULL,
-	preco_compra FLOAT NOT NULL,
-	preco_venda FLOAT NOT NULL,
-	descricao VARCHAR(255),
+	name VARCHAR(50) NOT NULL,
+	price_cost FLOAT NOT NULL,
+	price_sale FLOAT NOT NULL,
+	description VARCHAR(255),
   PRIMARY KEY (id) 
 )
 ;
----ESTOQUE
-CREATE TABLE estoque (
+CREATE TABLE stock (
 	id SERIAL NOT NULL,
-	produtos_id INT NOT NULL,
-	quantidade INT,
-	data_estoque DATE,
+	product_id INT NOT NULL,
+	quantity INT,
+	date_register DATE,
   PRIMARY KEY (id) ,
-  CONSTRAINT fk_estoque_produtos
-    FOREIGN KEY (produtos_id)
-    REFERENCES produtos(id)	
+  CONSTRAINT fk_stock_product
+    FOREIGN KEY (product_id)
+    REFERENCES product(id)	
 ) 
 ;
----RELATORIOS
 CREATE TABLE relatorios (
 	id SERIAL NOT NULL,
 	data_relatorio DATE,
@@ -56,4 +49,3 @@ CREATE TABLE relatorios (
   PRIMARY KEY (id) 
 )
 ;
----fim do script
