@@ -1,6 +1,6 @@
 package order;
 
-/* IMPORTAÇÃO DAS BIBLIOTECAS */
+/* Important libraries */
 import system.SystemWindow;
 import customer.CustomerDao;
 

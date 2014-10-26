@@ -77,16 +77,16 @@ public class SystemWindow extends JFrame {
 
         /* CUSTOMERS */
         menuItemListCustomer = new JMenuItem("List of customers");
-        menuItemRegisterCustomer = new JMenuItem("Register Client");
+        menuItemRegisterCustomer = new JMenuItem("Register Customer");
         menuItemPurchaseCustomer = new JMenuItem("Shopping Customer");
 
         /* INVENTORY */
         menuItemListInventory = new JMenuItem("List of products in inventory");
-        menuItemRegisterInventory = new JMenuItem("Register product in inventory");
+        menuItemRegisterInventory = new JMenuItem("Register product into inventory");
 
         /* PRODUCTS */
         menuItemListProducts = new JMenuItem("List all products");
-        menuItemRegisterProducts = new JMenuItem("Register products");
+        menuItemRegisterProducts = new JMenuItem("Register new products");
 
         /* REPORTS */
         menuItemReportToday = new JMenuItem("Report today");
@@ -357,9 +357,9 @@ public class SystemWindow extends JFrame {
     // MAIN!!!!!!!
     public static void main(String[] args) {
         SystemWindow js = new SystemWindow();
-        js.setVisible(true); // FALSE to activate login screen, TRUE to desactivate
+        js.setVisible(true); // FALSE to activate login screen, TRUE to deactivate
 
-        /*LOGIN- comment here to desativate the function of login ---- warning: the system will not have protection*/
+        /*LOGIN- comment here to deactivate the function of login ---- warning: the system will not have protection*/
        // Login l = new Login();
        // l.setVisible(true);
 

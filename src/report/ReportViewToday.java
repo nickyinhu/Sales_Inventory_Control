@@ -87,7 +87,7 @@ public class ReportViewToday extends JInternalFrame {
         scrollTabelaCliente.setLocation(10, 110);
 
 
-        buttomSave = new JButton("SELECTED SOMAR");
+        buttomSave = new JButton("SELECTED ORDER");
         buttomSave.setSize(200, 30);
         buttomSave.setLocation(10, 630);
 

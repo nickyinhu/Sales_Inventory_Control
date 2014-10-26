@@ -105,9 +105,9 @@ public class CustomerView extends JInternalFrame {
         this.search();
 
     }
-
+    
     public void Events() {
-
+    	CustomerView view = this;
         buttomSearch.addActionListener(new ActionListener() {
 
             @Override
@@ -154,9 +154,9 @@ public class CustomerView extends JInternalFrame {
                         data = tableCustomer.getValueAt(i, 5).toString();
                     }
 
-                    CustomerEdit clienteEdicao = new CustomerEdit(id, nome, cpf, telefone, end, data);
+                    CustomerEdit clienteEdicao = new CustomerEdit(view, id, nome, cpf, telefone, end, data);
                     clienteEdicao.setVisible(true);
-
+                    clienteEdicao.Events();
                 }
             }
         });
@@ -168,12 +168,12 @@ public class CustomerView extends JInternalFrame {
         String nome = textoName.getText();
         CustomerDao cliente = new CustomerDao();
         cliente.search(nome);
-
+        System.out.println("Searched");
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
         }
 
-        /* OBTENDO FORAMTO CORRETO PARA DATA */
+        /* OBTAIN CORRECT DATE FORMAT */
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
         try {

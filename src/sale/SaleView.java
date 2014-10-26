@@ -34,13 +34,13 @@ public class SaleView extends JInternalFrame {
     public SaleView() {
         mainPainel = new JPanel(null);
 
-        /*TITULO*/
+        /*TITLE*/
         labelTitle = new JLabel("PURCHASES CUSTOMER");
         labelTitle.setSize(300, 50);
         labelTitle.setLocation(10, 5);
         labelTitle.setFont(new Font("Verdana", Font.BOLD, 20));
 
-        /* ADICIONANDO AO PAINEL */
+        /* ADDING TO THE PANEL */
 
 
         labelName = new JLabel("NAME :");

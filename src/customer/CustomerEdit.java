@@ -3,9 +3,11 @@ package customer;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
 import java.text.ParseException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -20,11 +22,12 @@ public class CustomerEdit extends JDialog {
     private JLabel labelTitle, labelName, labelSsn, labelPhone, labelDateRegister, labelId, labelEnd;
     private JTextField textName, textSsn, textPhone, textDateRegister, textId, textEnd;
     private JButton buttomCancel, buttomSave;
+    private CustomerView view;
 
-    CustomerEdit(Integer id, String name, String ssn, String phone, String end, String date) {
+    CustomerEdit(CustomerView view, Integer id, String name, String ssn, String phone, String end, String date) {
         mainPainel = new JPanel(null);
-
-        /*TITULO*/
+        this.view = view;
+        /*TITLE*/
         labelTitle = new JLabel("EDITION OF CUSTOMERS");
         labelTitle.setSize(300, 50);
         labelTitle.setLocation(10, 5);
@@ -154,21 +157,18 @@ public class CustomerEdit extends JDialog {
 
                         CustomerDao cd = new CustomerDao();
                         cd.edit(sql);
-
+                        
                         if (cd.edited) {
                             setVisible(false);
                         }
-                        //QUESTION OPENED! HOW CAN I DO TO DO A instantaneous UPDATE?
-                        CustomerView auto_update = new CustomerView();
-                        System.out.println("HERE");
-                        auto_update.search();
+                        //QUESTION OPENED! HOW CAN I DO TO DO A instantaneous UPDATE? Solved by object passing!
+                        view.search();
                     }
                     
                 });
 
         buttomCancel.addActionListener(
                 new ActionListener() {
-
                     public void actionPerformed(ActionEvent e) {
                         int result = JOptionPane.showConfirmDialog(null, "Want to cancel the changes?", "Confirmattion", JOptionPane.YES_NO_OPTION);
                         if (result == JOptionPane.YES_OPTION) {

@@ -1,6 +1,4 @@
----- Script para criação do banco!
-CREATE DATABASE projetoIvo;
-\c projetoivo;
+﻿---- Script para criação do banco!
 ---CLIENTES
 CREATE TABLE clientes (
 	id SERIAL NOT NULL,
