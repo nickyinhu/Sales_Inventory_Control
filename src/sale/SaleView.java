@@ -121,7 +121,7 @@ public class SaleView extends JInternalFrame {
 
     public void search() {
         String name = textName.getText();
-        SaleDao purchase = new SaleDao();
+        SaleData purchase = new SaleData();
         purchase.listByName(name);
 
         while (tableModel.getRowCount() > 0) {

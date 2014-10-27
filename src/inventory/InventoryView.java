@@ -161,7 +161,7 @@ public class InventoryView extends JInternalFrame {
                             if (tabelaCliente.isCellSelected(i, 0)) {
                                 Object id = tabelaCliente.getValueAt(i, 0);
                                 System.out.println(id);
-                                InventoryDao removerDoEstoque = new InventoryDao();
+                                InventoryData removerDoEstoque = new InventoryData();
                                 removerDoEstoque.remove(id);
                             }
                         }
@@ -200,7 +200,7 @@ public class InventoryView extends JInternalFrame {
 
         ///// COPIA DO BOTAO DE CONSULTAR (VER DEPOIS)
         String nome = textoNome.getText();
-        InventoryDao estoqueDao = new InventoryDao();
+        InventoryData estoqueDao = new InventoryData();
         estoqueDao.listInventory(nome);
 
         while (tableModel.getRowCount() > 0) {

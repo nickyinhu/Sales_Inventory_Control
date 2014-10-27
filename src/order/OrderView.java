@@ -2,7 +2,7 @@ package order;
 
 /* Important libraries */
 import system.SystemWindow;
-import customer.CustomerDao;
+import customer.CustomerData;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -91,7 +91,7 @@ public class OrderView extends JInternalFrame {
         comboCustomers.addItem("");
 
         /***************** Getting customers to put in the combo box *******************/
-        OrderDao clientes = new OrderDao();
+        OrderData clientes = new OrderData();
         clientes.listAllCustomers();
         try {
             while (clientes.list.next()) {
@@ -130,7 +130,7 @@ public class OrderView extends JInternalFrame {
 
         comboNameProduct.addItem("");
         /***************** Getting products in inventory to put in a combo box *******************/
-        OrderDao produtos = new OrderDao();
+        OrderData produtos = new OrderData();
         produtos.listAllProducts();
         try {
             while (produtos.list.next()) {
@@ -299,7 +299,7 @@ public class OrderView extends JInternalFrame {
                 try {
                     String name = textoNome.getText();
                     comboNameProduct.removeAllItems();
-                    OrderDao orderName = new OrderDao();
+                    OrderData orderName = new OrderData();
                     orderName.productsComboBox(name);
 
                     while (orderName.list.next()) {
@@ -338,9 +338,9 @@ public class OrderView extends JInternalFrame {
                         }
 
 
-                        OrderDao inventory = new OrderDao();
+                        OrderData inventory = new OrderData();
                         /*Obtendo cliente*/
-                        customer.CustomerDao customer = new CustomerDao();
+                        customer.CustomerData customer = new CustomerData();
 
                         if (comboCustomers.getSelectedItem() == "") {
                             JOptionPane.showMessageDialog(null, "CUSTOMER MUST BE COMPLETED!", "ATTENTION", JOptionPane.WARNING_MESSAGE);
@@ -590,7 +590,7 @@ public class OrderView extends JInternalFrame {
 
         //***************************Getting in database********************************//
 
-        OrderDao pdao = new OrderDao();
+        OrderData pdao = new OrderData();
         pdao.readUniqueProduct(p.getProduct());
 
 
@@ -633,7 +633,7 @@ public class OrderView extends JInternalFrame {
         //Product no registered
         try {
             Boolean thereIs = false;
-            OrderDao pedido = new OrderDao();
+            OrderData pedido = new OrderData();
             pedido.readUniqueProduct(p.getProduct());
             while (pedido.list.next()) {
                 if (p.getId() == pedido.list.getInt("produtos_id")) {

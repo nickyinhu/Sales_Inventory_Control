@@ -152,7 +152,7 @@ public class ProductView extends JInternalFrame {
                             if (tableCustomer.isCellSelected(i, 0)) {
                                 Object id = tableCustomer.getValueAt(i, 0);
                                 System.out.println(id);
-                                ProductDao removeFromProducts = new ProductDao();
+                                ProductData removeFromProducts = new ProductData();
                                 removeFromProducts.remove(id);
                             }
                         }
@@ -170,7 +170,7 @@ public class ProductView extends JInternalFrame {
                     Integer id = null;
                     String name = null;
                     String price_purchase = null;
-                    String price_sale = null;
+                    String preco_cost = null;
                     String description = null;
 
                     int i = tableCustomer.getSelectedRow();
@@ -179,7 +179,7 @@ public class ProductView extends JInternalFrame {
                         id = Integer.parseInt(String.valueOf(tableCustomer.getValueAt(i, 0)));
                         name = tableCustomer.getValueAt(i, 1).toString();
                         price_purchase = tableCustomer.getValueAt(i, 2).toString();
-                        price_sale = tableCustomer.getValueAt(i, 3).toString();
+                        preco_cost = tableCustomer.getValueAt(i, 3).toString();
                         if (tableCustomer.getValueAt(i, 4) == null) {
                             description = "";
                         } else {
@@ -187,7 +187,7 @@ public class ProductView extends JInternalFrame {
                         }
                     }
 
-                    ProductEdit editionProduct = new ProductEdit(productView, id, name, price_purchase, price_sale, description);
+                    ProductEdit editionProduct = new ProductEdit(productView, id, name, price_purchase, preco_cost, description);
                     editionProduct.setVisible(true);
 
                 }
@@ -199,7 +199,7 @@ public class ProductView extends JInternalFrame {
     public void search() {
         ///// COPY THE BUTTON TO SEE ( SEE LATER )
         String name = textName.getText();
-        ProductDao pdao = new ProductDao();
+        ProductData pdao = new ProductData();
         pdao.search(name);
 
         while (tableModel.getRowCount() > 0) {
@@ -217,10 +217,10 @@ public class ProductView extends JInternalFrame {
         try {
             while (pdao.list.next()) {
                 int strCode = pdao.list.getInt("id");
-                String strName = pdao.list.getString("nome");
-                String strPurchase = pdao.list.getString("preco_compra");
-                String strSale = pdao.list.getString("preco_venda");
-                String strDes = pdao.list.getString("descricao");
+                String strName = pdao.list.getString("name");
+                String strPurchase = pdao.list.getString("preco_cost");
+                String strSale = pdao.list.getString("price_sale");
+                String strDes = pdao.list.getString("description");
                 tableModel.addRow(new Object[]{strCode, strName, DinheiroReal.format(Double.parseDouble(strPurchase)), DinheiroReal.format(Double.parseDouble(strSale)), strDes});
             }
         } catch (SQLException ex) {

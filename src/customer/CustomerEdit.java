@@ -147,15 +147,15 @@ public class CustomerEdit extends JDialog {
                         String date_register = textDateRegister.getText();
 
                         if (name == null || name.trim().equals("")) {
-                            JOptionPane.showMessageDialog(null, "Customer must be Filled!", null, JOptionPane.WARNING_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Customer info must be Filled!", null, JOptionPane.WARNING_MESSAGE);
                             return;
                         }
 
                         String sql = "";
 
-                        sql += "UPDATE clientes SET nome = '" + name + "', cpf='" + ssn + "', telefone='" + phone + "', endereco = '" + end + "' , data_cadastro='" + date_register + "' WHERE id = " + id + " ;";
+                        sql += "UPDATE client SET name = '" + name + "', ssn='" + ssn + "', telephone='" + phone + "', address = '" + end + "' , date_register='" + date_register + "' WHERE id = " + id + " ;";
 
-                        CustomerDao cd = new CustomerDao();
+                        CustomerData cd = new CustomerData();
                         cd.edit(sql);
                         
                         if (cd.edited) {

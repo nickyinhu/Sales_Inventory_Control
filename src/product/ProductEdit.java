@@ -20,7 +20,7 @@ public class ProductEdit extends JDialog {
     private int id;
     final ProductView productView;
 
-    public ProductEdit(ProductView productView, int id, String nome, String preco_compra, String preco_venda, String descricao) {
+    public ProductEdit(ProductView productView, int id, String name, String preco_cost, String preco_venda, String descricao) {
         this.id = id;
         this.productView = productView;
         mainPainel = new JPanel(null);
@@ -73,14 +73,14 @@ public class ProductEdit extends JDialog {
 
 
         /*Changing , by . to put in database*/
-        preco_compra = preco_compra.replace(',', '.');
+        preco_cost = preco_cost.replace(',', '.');
         preco_venda = preco_venda.replace(',', '.');
 
-        textoName = new JTextField(nome);
+        textoName = new JTextField(name);
         textoName.setSize(230, 30);
         textoName.setLocation(200, 100);
 
-        textPurchase = new JTextField(preco_compra);
+        textPurchase = new JTextField(preco_cost);
         textPurchase.setSize(230, 30);
         textPurchase.setLocation(200, 135);
 
@@ -135,13 +135,13 @@ public class ProductEdit extends JDialog {
 
                         String sql = "";
 
-                        sql += "UPDATE produtos SET nome = '" + name + "', preco_compra ='" + purchase + "' , preco_venda = '" + sale + "' ,descricao ='" + description + "' WHERE id = " + id + " ;";
+                        sql += "UPDATE produtos SET name = '" + name + "', preco_cost ='" + purchase + "' , preco_venda = '" + sale + "' ,descricao ='" + description + "' WHERE id = " + id + " ;";
 
 
-                        ProductDao pdao = new ProductDao();
-                        pdao.edit(sql);
+                        ProductData pdata = new ProductData();
+                        pdata.edit(sql);
 
-                        if (!pdao.editaded) {
+                        if (!pdata.edited) {
                             return;
                         } else {
                             setVisible(false);

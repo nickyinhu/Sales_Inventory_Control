@@ -103,7 +103,7 @@ public class InventoryEdit extends JDialog {
 
                         sql += "UPDATE estoque SET quantidade = '" + quantity + "', data_estoque='" + date_register + "'  WHERE id = " + id + " ;";
 
-                        InventoryDao editar = new InventoryDao();
+                        InventoryData editar = new InventoryData();
                         editar.edit(sql);
 
                         if (editar.edited) {

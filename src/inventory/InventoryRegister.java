@@ -44,11 +44,11 @@ public class InventoryRegister extends JInternalFrame {
         comboProduct.addItem("");
 
         /***************** Getiing the values of database to put in a combo *******************/
-        InventoryDao inventory = new InventoryDao();
+        InventoryData inventory = new InventoryData();
         inventory.readAll();
         try {
             while (inventory.list.next()) {
-                comboProduct.addItem(inventory.list.getArray("nome"));
+                comboProduct.addItem(inventory.list.getArray("name"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(InventoryRegister.class.getName()).log(Level.SEVERE, null, ex);
@@ -133,7 +133,7 @@ public class InventoryRegister extends JInternalFrame {
                         String date = TextData.getText();
                         quantity = quantity.replace(" ", "");
 
-                        InventoryDao estoque = new InventoryDao();
+                        InventoryData estoque = new InventoryData();
                         estoque.getId(name);
 
                         String sql2 = "";
@@ -161,11 +161,11 @@ public class InventoryRegister extends JInternalFrame {
                         // ATUALIZAR A COMBO
                         comboProduct.removeAllItems();
                         comboProduct.addItem("");
-                        InventoryDao mostrarAtualizado = new InventoryDao();
-                        mostrarAtualizado.readAll();
+                        InventoryData inventory = new InventoryData();
+                        inventory.readAll();
                         try {
-                            while (mostrarAtualizado.list.next()) {
-                                comboProduct.addItem(mostrarAtualizado.list.getArray("nome"));
+                            while (inventory.list.next()) {
+                                comboProduct.addItem(inventory.list.getArray("name"));
                             }
                         } catch (SQLException ex) {
                             Logger.getLogger(InventoryRegister.class.getName()).log(Level.SEVERE, null, ex);

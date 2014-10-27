@@ -118,10 +118,10 @@ public class ProductRegister extends JInternalFrame {
 
                         String sql = "";
 
-                        sql += "INSERT INTO produtos (nome, preco_compra, preco_venda, descricao) VALUES ";
+                        sql += "INSERT INTO product (name, price_cost, price_sale, description) VALUES ";
                         sql += "('" + name + "', '" + purchase + "', '" + sale + "', '" + description + "');";
 
-                        ProductDao pdao = new ProductDao();
+                        ProductData pdao = new ProductData();
                         pdao.register(sql);
 
                         if (pdao.clean_texts == 1) {

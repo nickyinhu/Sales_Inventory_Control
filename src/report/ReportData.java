@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class ReportDao {
+public class ReportData {
 
     public ResultSet list;
     public ResultSet product_id;
@@ -17,12 +17,12 @@ public class ReportDao {
     public ResultSet listPurchaseToday(String date) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            String sql = "SELECT t2.nome, t1.valor, t1.data_compra"
-                    + " FROM compras  AS t1"
-                    + " JOIN clientes AS t2 ON (t1.clientes_id = t2.id) "
-                    + "WHERE t1.data_compra = '" + date + "' "
+            String sql = "SELECT t2.name, t1.value, t1.date_shopping"
+                    + " FROM shopping  AS t1"
+                    + " JOIN client AS t2 ON (t1.client_id = t2.id) "
+                    + "WHERE t1.date_shopping = '" + date + "' "
                     + " ORDER BY t1.id DESC; ";
 
             list = stm.executeQuery(sql);
@@ -42,12 +42,12 @@ public class ReportDao {
     public ResultSet listPurchaseOverall() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            String sql = "SELECT t2.nome, t1.valor, t1.data_compra"
-                    + " FROM compras  AS t1"
-                    + " JOIN clientes AS t2 ON (t1.clientes_id = t2.id) "
-                    + " ORDER BY t1.data_compra DESC; ";
+            String sql = "SELECT t2.name, t1.value, t1.date_shopping"
+                    + " FROM shopping  AS t1"
+                    + " JOIN client AS t2 ON (t1.client_id = t2.id) "
+                    + " ORDER BY t1.date_shopping DESC; ";
 
             list = stm.executeQuery(sql);
         } catch (SQLException ex) {
@@ -66,11 +66,11 @@ public class ReportDao {
     public ResultSet sumToday(String date) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            String sql = "SELECT sum(valor) AS soma"
-                    + " FROM compras"
-                    + " WHERE data_compra = '" + date + "' "
+            String sql = "SELECT sum(value) AS soma"
+                    + " FROM shopping"
+                    + " WHERE date_shopping = '" + date + "' "
                     + " ;";
 
             list = stm.executeQuery(sql);
@@ -90,10 +90,10 @@ public class ReportDao {
     public ResultSet sumOverall() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            String sql = "SELECT sum(valor) AS soma"
-                    + " FROM compras"
+            String sql = "SELECT sum(value) AS soma"
+                    + " FROM shopping"
                     + " ;";
 
             list = stm.executeQuery(sql);
@@ -113,17 +113,17 @@ public class ReportDao {
     public ResultSet filter(String filter, String valueFilter) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            String sql = "SELECT t2.nome AS nome, t1.valor AS valor, t1.data_compra"
-                    + " FROM compras  AS t1"
-                    + " JOIN clientes AS t2 ON (t1.clientes_id = t2.id) ";
+            String sql = "SELECT t2.name AS name, t1.value AS value, t1.date_shopping"
+                    + " FROM shopping  AS t1"
+                    + " JOIN client AS t2 ON (t1.client_id = t2.id) ";
 
             /*VENDO QUAL O FILTRO ESCOHIDO*/
-            if (filter == "name" || filter == "nome" ) {
-                sql += " WHERE UPPER(nome) like '" + valueFilter.toUpperCase() + "%' ;";
+            if (filter == "name" || filter == "name" ) {
+                sql += " WHERE UPPER(name) like '" + valueFilter.toUpperCase() + "%' ;";
             } else {
-                sql += " WHERE data_compra = '" + valueFilter + "' ;";
+                sql += " WHERE date_shopping = '" + valueFilter + "' ;";
             }
             list = stm.executeQuery(sql);
         } catch (SQLException ex) {

@@ -1,5 +1,4 @@
-﻿-CREATE DATABASE project;
--\c project;
+﻿
 CREATE TABLE client (
 	id SERIAL NOT NULL,
 	name VARCHAR(50),
@@ -12,11 +11,11 @@ CREATE TABLE client (
 ;  
 CREATE TABLE shopping (
 	id SERIAL NOT NULL ,
-	client_id INT ,
+	client_id INT,
 	value FLOAT NOT NULL,
-	date_shopping DATE NOT NULL ,
-  PRIMARY KEY (id) ,
-  CONSTRAINT fk_shopping_client
+	date_shopping DATE NOT NULL,
+  	PRIMARY KEY (id),
+  	CONSTRAINT shopping_client
     FOREIGN KEY (client_id)
     REFERENCES client(id)	
 )
@@ -36,14 +35,14 @@ CREATE TABLE stock (
 	quantity INT,
 	date_register DATE,
   PRIMARY KEY (id) ,
-  CONSTRAINT fk_stock_product
+  CONSTRAINT stock_product
     FOREIGN KEY (product_id)
     REFERENCES product(id)	
 ) 
 ;
-CREATE TABLE relatorios (
+CREATE TABLE report (
 	id SERIAL NOT NULL,
-	data_relatorio DATE,
+	date_report DATE,
 	venda FLOAT,
 	lucro FLOAT,
   PRIMARY KEY (id) 

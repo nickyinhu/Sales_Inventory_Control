@@ -49,17 +49,17 @@ public class ReportViewToday extends JInternalFrame {
 
 
         /* Money format */
-        Locale BR = new Locale("pt", "BR");
-        DecimalFormatSymbols R = new DecimalFormatSymbols(BR);
-        DecimalFormat DR = new DecimalFormat("###,###,##0.00", R);
+        Locale US = new Locale("en", "UK");
+        DecimalFormatSymbols REAL = new DecimalFormatSymbols(US);
+        DecimalFormat DR = new DecimalFormat("###,###,##0.00", REAL);
 
         SystemWindow j0 = new SystemWindow(); // RECUPERAR A DATA
-        ReportDao reportSum = new ReportDao();
+        ReportData reportSum = new ReportData();
         reportSum.sumToday(j0.dateString);
         try {
             while (reportSum.list.next()) {
-                double valor = reportSum.list.getDouble("soma");
-                String str = String.valueOf(valor);
+                double value = reportSum.list.getDouble("soma");
+                String str = String.valueOf(value);
                 labelSumValue.setText(DR.format(Double.parseDouble(str)));
             }
         } catch (SQLException ex) {
@@ -123,21 +123,18 @@ public class ReportViewToday extends JInternalFrame {
                         double sum = 0;
                         for (int i = 0; i < tableCustomer.getRowCount(); i++) {
                             if (tableCustomer.isCellSelected(i, 1)) {
-                                String removeComma = tableModel.getValueAt(i, 1).toString();
-                                removeComma = removeComma.replace(".", " ");
-                                removeComma = removeComma.replace(" ", "");
-                                removeComma = removeComma.replace(",", ".");
-                                sum = sum + Double.parseDouble(removeComma);
+                                String revenue = tableModel.getValueAt(i, 1).toString();
+                                System.out.println(revenue);
+                                sum = sum + Double.parseDouble(revenue);
                             }
                         }
                         String Sum = String.valueOf(sum);
 
                         /* OBTENDO FORMATO CORRETO DO DINHEIRO */
-                        Locale BR = new Locale("pt", "BR");
-                        DecimalFormatSymbols R = new DecimalFormatSymbols(BR);
-                        DecimalFormat DR = new DecimalFormat("###,###,##0.00", R);
-
-
+                        Locale US = new Locale("en", "UK");
+                        DecimalFormatSymbols REAL = new DecimalFormatSymbols(US);
+                        DecimalFormat DR = new DecimalFormat("###,###,##0.00", REAL);
+                        
                         labelSumSelected.setText(DR.format(Double.parseDouble(Sum)));
 
                     }
@@ -147,11 +144,11 @@ public class ReportViewToday extends JInternalFrame {
 
     public void search() {
 
-        /*---------------  ADICIONAR VALORES A LISTA  ----------------*/
+        /*---------------  ADICIONAR valueES A LISTA  ----------------*/
 
         SystemWindow j = new SystemWindow();
-        ReportDao reportDao = new ReportDao();
-        reportDao.listPurchaseToday(j.dateString);
+        ReportData reportData = new ReportData();
+        reportData.listPurchaseToday(j.dateString);
 
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
@@ -166,10 +163,10 @@ public class ReportViewToday extends JInternalFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
         try {
-            while (reportDao.list.next()) {
-                String strNameCustomer = reportDao.list.getString("nome");
-                String strValue = reportDao.list.getString("valor");
-                Date strDate = reportDao.list.getDate("data_compra");
+            while (reportData.list.next()) {
+                String strNameCustomer = reportData.list.getString("name");
+                String strValue = reportData.list.getString("value");
+                Date strDate = reportData.list.getDate("date_shopping");
                 tableModel.addRow(new Object[]{strNameCustomer, DinheiroReal.format(Double.parseDouble(strValue)), sdf.format(strDate)});
             }
         } catch (SQLException ex) {

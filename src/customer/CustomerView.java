@@ -74,9 +74,9 @@ public class CustomerView extends JInternalFrame {
         tableModel.addColumn("REGISTER");
 
 
-        JScrollPane scrollTabelaCliente = new JScrollPane(tableCustomer);
-        scrollTabelaCliente.setSize(990, 400);
-        scrollTabelaCliente.setLocation(10, 110);
+        JScrollPane scrollTabelaclient = new JScrollPane(tableCustomer);
+        scrollTabelaclient.setSize(990, 400);
+        scrollTabelaclient.setLocation(10, 110);
 
         mainPainel.add(labelTitle);
         mainPainel.add(labelName);
@@ -84,7 +84,7 @@ public class CustomerView extends JInternalFrame {
 
         mainPainel.add(buttomSearch);
 
-        mainPainel.add(scrollTabelaCliente);
+        mainPainel.add(scrollTabelaclient);
 
         /*BOTTOM NOTION*/
         labelObs = new JLabel("Double-click on the record to edit it !");
@@ -154,9 +154,9 @@ public class CustomerView extends JInternalFrame {
                         data = tableCustomer.getValueAt(i, 5).toString();
                     }
 
-                    CustomerEdit clienteEdicao = new CustomerEdit(view, id, nome, cpf, telefone, end, data);
-                    clienteEdicao.setVisible(true);
-                    clienteEdicao.Events();
+                    CustomerEdit clientEdicao = new CustomerEdit(view, id, nome, cpf, telefone, end, data);
+                    clientEdicao.setVisible(true);
+                    clientEdicao.Events();
                 }
             }
         });
@@ -166,8 +166,8 @@ public class CustomerView extends JInternalFrame {
     public void search() {
 
         String nome = textoName.getText();
-        CustomerDao cliente = new CustomerDao();
-        cliente.search(nome);
+        CustomerData client = new CustomerData();
+        client.search(nome);
         System.out.println("Searched");
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
@@ -177,20 +177,20 @@ public class CustomerView extends JInternalFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
 
         try {
-            while (cliente.list.next()) {
-                int strCodigo = cliente.list.getInt("id");
-                String strNome = cliente.list.getString("nome");
-                String strCpf = cliente.list.getString("cpf");
-                String strTelefone = cliente.list.getString("telefone");
-                String strEnd = cliente.list.getString("endereco");
-                Date strData = cliente.list.getDate("data_cadastro");
+            while (client.list.next()) {
+                int strCodigo = client.list.getInt("id");
+                String strNome = client.list.getString("nome");
+                String strCpf = client.list.getString("cpf");
+                String strTelefone = client.list.getString("telefone");
+                String strEnd = client.list.getString("endereco");
+                Date strData = client.list.getDate("data_cadastro");
                 tableModel.addRow(new Object[]{strCodigo, strNome, strCpf, strTelefone, strEnd, sdf.format(strData)});
             }
         } catch (SQLException ex) {
             Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            cliente.stm.close();
+            client.stm.close();
         } catch (SQLException ex) {
             Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);
         }

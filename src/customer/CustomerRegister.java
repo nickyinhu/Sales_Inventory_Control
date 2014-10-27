@@ -173,7 +173,7 @@ public class CustomerRegister extends JInternalFrame {
                         sql += "INSERT INTO clientes (nome, cpf, telefone, endereco, data_cadastro) VALUES ";
                         sql += "('" + nome + "', '" + cpf + "', '" + telefone + "', '" + end + "', '" + data_cadastro + "');";
 
-                        CustomerDao cd = new CustomerDao();
+                        CustomerData cd = new CustomerData();
                         cd.register(sql);
 
                         if (cd.isRegistered) {

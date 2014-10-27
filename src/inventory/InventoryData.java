@@ -1,6 +1,6 @@
 package inventory;
 
-/*  ACESSO AO ESTOQUE   */
+/*  ACCESS STOCK   */
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,7 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class InventoryDao {
+public class InventoryData {
 
     public ResultSet list;
     public ResultSet product_id;
@@ -21,21 +21,21 @@ public class InventoryDao {
     public ResultSet readAll() {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
             String sql = "";
 
             sql += "SELECT t2.nome,t2.id ";
-            sql += "FROM estoque  AS t1 ";
-            sql += "RIGHT JOIN produtos AS t2 ON (t1.produtos_id = t2.id) ";
+            sql += "FROM stock  AS t1 ";
+            sql += "RIGHT JOIN product AS t2 ON (t1.product_id = t2.id) ";
             sql += "WHERE NOT EXISTS ( ";
             sql += "SELECT * ";
             sql += "FROM ";
-            sql += "produtos  ";
+            sql += "product  ";
             sql += "WHERE ";
-            sql += "t1.produtos_id = t2.id";
+            sql += "t1.product_id = t2.id";
             sql += ") ";
-            sql += "ORDER BY t2.nome;";
+            sql += "ORDER BY t2.name;";
 
             list = stm.executeQuery(sql);
         } catch (SQLException ex) {
@@ -44,7 +44,7 @@ public class InventoryDao {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar a conexão de leitura do estoque");
+                System.out.println("Error closing the connection of inventory database");
             }
 
         }
@@ -54,14 +54,14 @@ public class InventoryDao {
     public void register(String sql2) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
             int resultado = stm.executeUpdate(sql2);
             if (resultado >= 1) {
                 System.out.println("Stored product SUCCESSFULLY!");
                 JOptionPane.showMessageDialog(null, "Product Stored  SUCCESSFULLY!");
             } else {
-                System.out.println("ERRO AO ESTOCAR PRODUTO!");
+                System.out.println("ERROR STORING PRODUCT!");
                 JOptionPane.showMessageDialog(null, "Error storing product, check the data!", null, JOptionPane.WARNING_MESSAGE);
             }
         } catch (SQLException ex) {
@@ -71,7 +71,7 @@ public class InventoryDao {
             try {
                 connection.close();
             } catch (SQLException ex) {
-                System.out.println("Erro ao fechar a conexão");
+                System.out.println("Error closing connection");
             }
 
         }
@@ -82,18 +82,18 @@ public class InventoryDao {
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
 
-            String sql = "SELECT t1.id,t1.nome,t1.preco_venda"
-                    + "	FROM produtos AS t1"
-                    + "	WHERE (t1.nome = '" + nome + "');";
+            String sql = "SELECT t1.id,t1.name,t1.price_sale"
+                    + "	FROM product AS t1"
+                    + "	WHERE (t1.name = '" + nome + "');";
 
             product_id = stm.executeQuery(sql);
 
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(InventoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InventoryData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -111,19 +111,19 @@ public class InventoryDao {
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
 
 
-            String sql = "SELECT t1.id,t1.quantidade, t1.data_estoque,t2.nome,t2.preco_venda "
-                    + "FROM estoque  AS t1 "
-                    + "JOIN produtos AS t2 ON (t1.produtos_id = t2.id) "
-                    + "where UPPER(nome) like '" + nome.toUpperCase() + "%' ORDER BY id DESC ;";
+            String sql = "SELECT t1.id,t1.quantity, t1.date_register,t2.name,t2.price_sale "
+                    + "FROM stock  AS t1 "
+                    + "JOIN product AS t2 ON (t1.product_id = t2.id) "
+                    + "where UPPER(name) like '" + nome.toUpperCase() + "%' ORDER BY id DESC ;";
 
             list = stm.executeQuery(sql);
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(InventoryDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(InventoryData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -141,13 +141,13 @@ public class InventoryDao {
     public void remove(Object id) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
 
-            String sql = "DELETE FROM estoque WHERE id = " + id + "";
+            String sql = "DELETE FROM stock WHERE id = " + id + "";
 
             stm.executeUpdate(sql);
-            System.out.println("DELETADO");
+            System.out.println("DELETED");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error removing !", null, JOptionPane.WARNING_MESSAGE);
             ex.printStackTrace();
@@ -164,14 +164,14 @@ public class InventoryDao {
     public void edit(String sql) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            int resultado = stm.executeUpdate(sql);
-            if (resultado >= 1) {
+            int result = stm.executeUpdate(sql);
+            if (result >= 1) {
                 System.out.println("Product stored SUCCESSFULLY!");
                 JOptionPane.showMessageDialog(null, "Stock updated successfully");
             } else {
-                System.out.println("ERRO AO ESTOCAR PRODUTO!");
+                System.out.println("ERROR STORING PRODUCT!");
                 JOptionPane.showMessageDialog(null, "Error updating the stock, verify the data !", null, JOptionPane.WARNING_MESSAGE);
             }
             edited = true;

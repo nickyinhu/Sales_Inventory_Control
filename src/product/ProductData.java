@@ -9,26 +9,26 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-public class ProductDao {
+public class ProductData {
 
     public ResultSet list;
     Statement stm = null;
     int clean_texts;
-    boolean editaded; //To not closed the page even a error occur 
+    protected boolean edited; //To not closed the page even a error occur 
 
     public ResultSet search(String name) {
         Connection connection = null;
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
 
-            String sql = "select * from produtos where UPPER(nome) like '" + name.toUpperCase() + "%' ORDER BY id DESC";
+            String sql = "select * from product where UPPER(name) like '" + name.toUpperCase() + "%' ORDER BY id DESC";
 
             list = stm.executeQuery(sql);
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(ProductDao.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductData.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
@@ -45,10 +45,10 @@ public class ProductDao {
         Connection connection = null;
         Statement stm = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            int resultado = stm.executeUpdate(sql);
-            if (resultado >= 1) {
+            int report = stm.executeUpdate(sql);
+            if (report >= 1) {
                 clean_texts = 1;
                 System.out.println("product sucess!");
                 JOptionPane.showMessageDialog(null, "Product successfully registered !");
@@ -71,10 +71,10 @@ public class ProductDao {
     public void remove(Object id) {
         Connection connection = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
 
-            String sql = "DELETE FROM produtos WHERE id = " + id + "";
+            String sql = "DELETE FROM product WHERE id = " + id + "";
 
             stm.executeUpdate(sql);
             System.out.println("DELETED");
@@ -95,15 +95,15 @@ public class ProductDao {
         Connection connection = null;
         Statement stm = null;
         try {
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/projetoivo", "solar", "solar");
+            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            int resultado = stm.executeUpdate(sql);
-            if (resultado >= 1) {
-                editaded = true;
+            int report = stm.executeUpdate(sql);
+            if (report >= 1) {
+                edited = true;
                 System.out.println("Product updated with sucess !");
                 JOptionPane.showMessageDialog(null, "Product Successfully Updated !");
             } else {
-                editaded = false;
+                edited = false;
                 System.out.println("Error updating product !");
                 JOptionPane.showMessageDialog(null, "Error updating the product, check the data !", null, JOptionPane.WARNING_MESSAGE);
             }
