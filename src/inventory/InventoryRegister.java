@@ -133,26 +133,25 @@ public class InventoryRegister extends JInternalFrame {
                         String date = TextData.getText();
                         quantity = quantity.replace(" ", "");
 
-                        InventoryData estoque = new InventoryData();
-                        estoque.getId(name);
+                        InventoryData stock = new InventoryData();
+                        stock.getId(name);
 
                         String sql2 = "";
                         int id = 0;
                         try {
-                            while (estoque.product_id.next()) {
-                                id = estoque.product_id.getInt("id");
+                            while (stock.product_id.next()) {
+                                id = stock.product_id.getInt("id");
                             }
                         } catch (SQLException ex) {
                             Logger.getLogger(InventoryRegister.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
-                        sql2 += "INSERT INTO estoque (produtos_id,quantidade,data_estoque) ";
+                        sql2 += "INSERT INTO stock (product_id,quantity,date_register) ";
                         sql2 += "VALUES ( '" + id + "', '" + quantity + "', '" + date + "' )";
-
-                        estoque.register(sql2);
+                        stock.register(sql2);
 
                         try {
-                            estoque.stm.close();
+                        	stock.stm.close();
                         } catch (SQLException ex) {
                             Logger.getLogger(InventoryRegister.class.getName()).log(Level.SEVERE, null, ex);
                         }
@@ -171,7 +170,7 @@ public class InventoryRegister extends JInternalFrame {
                             Logger.getLogger(InventoryRegister.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         try {
-                            estoque.stm.close();
+                        	stock.stm.close();
                         } catch (SQLException ex) {
                             Logger.getLogger(InventoryRegister.class.getName()).log(Level.SEVERE, null, ex);
                         }

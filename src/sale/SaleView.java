@@ -139,9 +139,9 @@ public class SaleView extends JInternalFrame {
         try {
             while (purchase.list.next()) {
                 int strCode = purchase.list.getInt("id");
-                String strNane = purchase.list.getString("nome");
-                String strValue = purchase.list.getString("valor");
-                Date strDate = purchase.list.getDate("data_compra");
+                String strNane = purchase.list.getString("name");
+                String strValue = purchase.list.getString("value");
+                Date strDate = purchase.list.getDate("date_shopping");
                 tableModel.addRow(new Object[]{strCode, strNane, DinheiroReal.format(Double.parseDouble(strValue)), sdf.format(strDate)});
             }
         } catch (SQLException ex) {

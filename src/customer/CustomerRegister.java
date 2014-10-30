@@ -19,7 +19,7 @@ public class CustomerRegister extends JInternalFrame {
 
     private JPanel mainPainel;
     private JLabel labelTitle, labelName, labelSsn, labelPhone, labelDateRegister, labelId;
-    private JTextField textName, textSsn, textPhone, textDateRegister, textEnd;
+    private JTextField textName, textSsn, textPhone, textDateRegister, textAdd;
     private JButton buttomCancel, buttomSave;
 
     public CustomerRegister() {
@@ -77,7 +77,7 @@ public class CustomerRegister extends JInternalFrame {
         
         MaskFormatter cpf; // Mask
         try {
-            cpf = new javax.swing.text.MaskFormatter("###-###-####");
+            cpf = new javax.swing.text.MaskFormatter("###-##-####");
             textSsn = new javax.swing.JFormattedTextField(cpf);
             textSsn.setSize(160, 30);
             textSsn.setLocation(130, 100);
@@ -97,9 +97,9 @@ public class CustomerRegister extends JInternalFrame {
         }
         
 
-        textEnd = new JTextField();
-        textEnd.setSize(700, 30);
-        textEnd.setLocation(130, 170);
+        textAdd = new JTextField();
+        textAdd.setSize(700, 30);
+        textAdd.setLocation(130, 170);
 
 
         SystemWindow j = new SystemWindow();
@@ -112,7 +112,7 @@ public class CustomerRegister extends JInternalFrame {
         mainPainel.add(textSsn);
         mainPainel.add(textPhone);
         mainPainel.add(textDateRegister);
-        mainPainel.add(textEnd);
+        mainPainel.add(textAdd);
 
         buttomCancel = new JButton("NEW");
         buttomSave = new JButton("SAVE");
@@ -145,7 +145,7 @@ public class CustomerRegister extends JInternalFrame {
                         textName.setText("");
                         textSsn.setText("");
                         textPhone.setText("");
-                        textEnd.setText("");
+                        textAdd.setText("");
                         SystemWindow j = new SystemWindow();
                         textDateRegister.setText(j.dateString);
                         transferFocus();
@@ -157,21 +157,21 @@ public class CustomerRegister extends JInternalFrame {
 
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String nome = textName.getText();
-                        String cpf = textSsn.getText();
-                        String telefone = textPhone.getText();
-                        String end = textEnd.getText();
-                        String data_cadastro = textDateRegister.getText();
+                        String name = textName.getText();
+                        String ssn = textSsn.getText();
+                        String telephone = textPhone.getText();
+                        String address = textAdd.getText();
+                        String date_register = textDateRegister.getText();
 
-                        if (nome == null || nome.trim().equals("")) {
+                        if (name == null || name.trim().equals("")) {
                             JOptionPane.showMessageDialog(null, "Customer must be Filled!", "ATTENTION", JOptionPane.WARNING_MESSAGE);
                             return;
                         }
 
                         String sql = "";
 
-                        sql += "INSERT INTO clientes (nome, cpf, telefone, endereco, data_cadastro) VALUES ";
-                        sql += "('" + nome + "', '" + cpf + "', '" + telefone + "', '" + end + "', '" + data_cadastro + "');";
+                        sql += "INSERT INTO client (name, ssn, telephone, address, date_register) VALUES ";
+                        sql += "('" + name + "', '" + ssn + "', '" + telephone + "', '" + address + "', '" + date_register + "');";
 
                         CustomerData cd = new CustomerData();
                         cd.register(sql);
@@ -180,7 +180,7 @@ public class CustomerRegister extends JInternalFrame {
                             textName.setText("");
                             textSsn.setText("");
                             textPhone.setText("");
-                            textEnd.setText("");
+                            textAdd.setText("");
                             transferFocus();
                         }
 

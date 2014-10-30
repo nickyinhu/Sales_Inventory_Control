@@ -218,10 +218,10 @@ public class InventoryView extends JInternalFrame {
         try {
             while (estoqueDao.list.next()) {
                 int id = estoqueDao.list.getInt("id");
-                String strNome = estoqueDao.list.getString("nome");
-                int Intquantidade = estoqueDao.list.getInt("quantidade");
-                String strValor = estoqueDao.list.getString("preco_venda");
-                Date strData = estoqueDao.list.getDate("data_estoque");
+                String strNome = estoqueDao.list.getString("name");
+                int Intquantidade = estoqueDao.list.getInt("quantity");
+                String strValor = estoqueDao.list.getString("price_sale");
+                Date strData = estoqueDao.list.getDate("date_register");
                 tableModel.addRow(new Object[]{id, strNome, Intquantidade, DinheiroReal.format(Double.parseDouble(strValor)), sdf.format(strData)});
             }
         } catch (SQLException ex) {

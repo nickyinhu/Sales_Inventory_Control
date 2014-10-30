@@ -153,7 +153,7 @@ public class OrderData {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
 
-            stm.executeUpdate("INSERT INTO compras (client_id,value,data_compra) VALUES ( " + client + " , " + total + " , '" + data + "' );");
+            stm.executeUpdate("INSERT INTO shopping (client_id,value,date_shopping) VALUES ( " + client + " , " + total + " , '" + data + "' );");
 
             JOptionPane.showMessageDialog(null, "ORDER Successfully Saved!");
 

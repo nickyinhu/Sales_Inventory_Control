@@ -95,7 +95,7 @@ public class OrderView extends JInternalFrame {
         clientes.listAllCustomers();
         try {
             while (clientes.list.next()) {
-                comboCustomers.addItem(clientes.list.getArray("nome"));
+                comboCustomers.addItem(clientes.list.getArray("name"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderView.class.getName()).log(Level.SEVERE, null, ex);
@@ -134,7 +134,7 @@ public class OrderView extends JInternalFrame {
         produtos.listAllProducts();
         try {
             while (produtos.list.next()) {
-                comboNameProduct.addItem(produtos.list.getArray("nome"));
+                comboNameProduct.addItem(produtos.list.getArray("name"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderView.class.getName()).log(Level.SEVERE, null, ex);
@@ -371,8 +371,8 @@ public class OrderView extends JInternalFrame {
                             try {
                                 while (inventory.list.next()) {
                                     /**UPDATE IN DATABASE**/
-                                    int quantidade = inventory.list.getInt("quantidade") - ps.getQuantity();
-                                    inventory.UpdateInventory(quantidade, ps.getId());
+                                    int quantity = inventory.list.getInt("quantity") - ps.getQuantity();
+                                    inventory.UpdateInventory(quantity, ps.getId());
 
                                 }
                             } catch (SQLException ex) {
@@ -605,7 +605,7 @@ public class OrderView extends JInternalFrame {
             while (pdao.list.next()) {
 
                 /*VERIFICANDO*/
-                int checking = (pdao.list.getInt("quantidade") - p.getQuantity());
+                int checking = (pdao.list.getInt("quantity") - p.getQuantity());
                 if (!(checking >= 0)) {
                     int result = JOptionPane.showConfirmDialog(null, "Posted Overcomes the amount of stock in (" + checking * -1 + ") units! Add anyway?", "ATTENTION", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                     if (result == 1) {
@@ -614,7 +614,7 @@ public class OrderView extends JInternalFrame {
                 }
                 /****************/
                 p.setId(pdao.list.getInt("id"));
-                p.setValue(pdao.list.getDouble("preco_venda"));
+                p.setValue(pdao.list.getDouble("price_sale"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(OrderView.class.getName()).log(Level.SEVERE, null, ex);
@@ -633,10 +633,10 @@ public class OrderView extends JInternalFrame {
         //Product no registered
         try {
             Boolean thereIs = false;
-            OrderData pedido = new OrderData();
-            pedido.readUniqueProduct(p.getProduct());
-            while (pedido.list.next()) {
-                if (p.getId() == pedido.list.getInt("produtos_id")) {
+            OrderData order = new OrderData();
+            order.readUniqueProduct(p.getProduct());
+            while (order.list.next()) {
+                if (p.getId() == order.list.getInt("product_id")) {
                     thereIs = true;
                     continue;
                 }
@@ -655,7 +655,7 @@ public class OrderView extends JInternalFrame {
         /* Money format */
         Locale US = new Locale("en", "UK");
         DecimalFormatSymbols REAL = new DecimalFormatSymbols(US);
-        DecimalFormat DinheiroReal = new DecimalFormat("###,###,##0.00", REAL);
+        DecimalFormat df = new DecimalFormat("###,###,##0.00", REAL);
 
         while (tableModel.getRowCount() > 0) {
             tableModel.removeRow(0);
@@ -665,7 +665,7 @@ public class OrderView extends JInternalFrame {
             Order ps = orderList.get(i);
             Double total = (ps.getValue() * ps.getQuantity());
             aux = total;
-            tableModel.addRow(new Object[]{ps.getId(), ps.getProduct(), ps.getQuantity(), DinheiroReal.format(ps.getValue()), DinheiroReal.format(total)});
+            tableModel.addRow(new Object[]{ps.getId(), ps.getProduct(), ps.getQuantity(), df.format(ps.getValue()), df.format(total)});
 
         }
 

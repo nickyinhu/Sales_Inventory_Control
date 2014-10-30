@@ -47,8 +47,8 @@ public class CustomerData {
         try {
             connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/project", "solar", "solar");
             stm = connection.createStatement();
-            int resultado = stm.executeUpdate(sql);
-            if (resultado >= 1) {
+            int result = stm.executeUpdate(sql);
+            if (result >= 1) {
                 System.out.println("User created!!");
                 JOptionPane.showMessageDialog(null, "client successfully registered !");
                 isRegistered = true;

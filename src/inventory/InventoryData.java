@@ -25,7 +25,7 @@ public class InventoryData {
             stm = connection.createStatement();
             String sql = "";
 
-            sql += "SELECT t2.nome,t2.id ";
+            sql += "SELECT t2.name,t2.id ";
             sql += "FROM stock  AS t1 ";
             sql += "RIGHT JOIN product AS t2 ON (t1.product_id = t2.id) ";
             sql += "WHERE NOT EXISTS ( ";

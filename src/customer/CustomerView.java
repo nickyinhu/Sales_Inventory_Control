@@ -178,13 +178,13 @@ public class CustomerView extends JInternalFrame {
 
         try {
             while (client.list.next()) {
-                int strCodigo = client.list.getInt("id");
-                String strNome = client.list.getString("nome");
-                String strCpf = client.list.getString("cpf");
-                String strTelefone = client.list.getString("telefone");
-                String strEnd = client.list.getString("endereco");
-                Date strData = client.list.getDate("data_cadastro");
-                tableModel.addRow(new Object[]{strCodigo, strNome, strCpf, strTelefone, strEnd, sdf.format(strData)});
+                int strID = client.list.getInt("id");
+                String strNAme = client.list.getString("name");
+                String strSSN = client.list.getString("ssn");
+                String strTelephone = client.list.getString("telephone");
+                String strAddress = client.list.getString("address");
+                Date strDate = client.list.getDate("date_register");
+                tableModel.addRow(new Object[]{strID, strNAme, strSSN, strTelephone, strAddress, sdf.format(strDate)});
             }
         } catch (SQLException ex) {
             Logger.getLogger(CustomerView.class.getName()).log(Level.SEVERE, null, ex);

@@ -209,7 +209,7 @@ public class ProductView extends JInternalFrame {
         /* MONEY FORMAT */
         Locale US = new Locale("en", "UK");
         DecimalFormatSymbols REAL = new DecimalFormatSymbols(US);
-        DecimalFormat DinheiroReal = new DecimalFormat("###,###,##0.00", REAL);
+        DecimalFormat df = new DecimalFormat("###,###,##0.00", REAL);
 
         /* DATE FORMAT */
         //SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -218,10 +218,10 @@ public class ProductView extends JInternalFrame {
             while (pdao.list.next()) {
                 int strCode = pdao.list.getInt("id");
                 String strName = pdao.list.getString("name");
-                String strPurchase = pdao.list.getString("preco_cost");
+                String strPurchase = pdao.list.getString("price_cost");
                 String strSale = pdao.list.getString("price_sale");
                 String strDes = pdao.list.getString("description");
-                tableModel.addRow(new Object[]{strCode, strName, DinheiroReal.format(Double.parseDouble(strPurchase)), DinheiroReal.format(Double.parseDouble(strSale)), strDes});
+                tableModel.addRow(new Object[]{strCode, strName, df.format(Double.parseDouble(strPurchase)), df.format(Double.parseDouble(strSale)), strDes});
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductView.class.getName()).log(Level.SEVERE, null, ex);
